@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import AppError from "../utils/error.util.js";
+import uploadOnCloudinary from "../utils/cloudinary.util.js";
 
 const cookieOption = {
   maxAge: 24 * 60 * 60 * 1000,
@@ -8,7 +9,8 @@ const cookieOption = {
 
 const register = async (req, res, next) => {
   const { fullName, email, password } = req.body;
-
+  // console.log(req.body);//
+  // console.log(req.file);/
   if (!fullName || !email || !password) {
     return next(new AppError("All fields are required", 400));
   }
@@ -17,15 +19,27 @@ const register = async (req, res, next) => {
   if (userExist) {
     return next(new AppError("User Already Registered !!", 400));
   }
+  const avatarLocalPath = req.file?.path;
+  console.log(avatarLocalPath);
+
+  if (!avatarLocalPath) {
+    return next(new AppError("Avatar Required!!", 400));
+  }
+  const avatar = await uploadOnCloudinary(avatarLocalPath);
+  // console.log(avatar);
+  if (!avatar) {
+    return next(new AppError("Avatar Required!!", 500));
+  }
   try {
     const user = await User.create({
       fullName,
       email,
       password,
-      avatar: {},
+      avatar: avatar.url,
     });
-
+    console.log(user);
     const token = await user.generateAuthToken();
+    console.log(token);
 
     res.cookie("Token", token, cookieOption);
 

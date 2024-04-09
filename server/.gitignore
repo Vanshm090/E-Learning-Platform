@@ -1,0 +1,51 @@
+# OS or editor temporary files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+*.tmp
+
+# IDE or editor configuration
+.idea/
+.vscode/
+
+# Node.js specific
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Compiled binary files
+*.o
+*.out
+*.exe
+
+# Package management files
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Build output
+/build/
+/dist/
+/out/
+
+# Dependency directories
+/vendor/
+/bower_components/
+
+# OS generated files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Personal settings
+.history

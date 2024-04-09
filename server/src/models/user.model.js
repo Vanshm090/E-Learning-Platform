@@ -25,7 +25,10 @@ const userSchema = new Schema(
       required: [true, "Email is required"],
       select: false,
     },
-    avatar: {},
+    avatar: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       enum: ["USER", "ADMIN"],

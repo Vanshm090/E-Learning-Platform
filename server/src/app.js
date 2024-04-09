@@ -16,7 +16,7 @@ app.use("/ping", (req, res) => {
   res.send("server Up!!");
 });
 
-app.use("/api/v1/", userRoute);
+app.use("/api/v1/users", userRoute);
 
 app.all("*", (req, res) => {
   res.status(404).send("oops ! 404 page not found");
