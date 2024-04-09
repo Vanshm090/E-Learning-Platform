@@ -1,10 +1,13 @@
 import { v2 as cloudinary } from "cloudinary";
 import AppError from "./error.util.js";
+import fs from "fs";
+import { config } from "dotenv"; //for cloudinaryy enviornment cariables
+config();
 
 cloudinary.config({
-  cloud_name: "domofbgek",
-  api_key: "311656935833367",
-  api_secret: "ZLY-zpXSqwntopwDIJWl6-Kyj_8",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const uploadOnCloudinary = async (localFilePath) => {

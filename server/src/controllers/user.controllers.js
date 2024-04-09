@@ -39,7 +39,6 @@ const register = async (req, res, next) => {
     });
     console.log(user);
     const token = await user.generateAuthToken();
-    console.log(token);
 
     res.cookie("Token", token, cookieOption);
 
