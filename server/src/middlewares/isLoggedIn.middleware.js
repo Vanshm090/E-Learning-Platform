@@ -9,8 +9,11 @@ const isLoggedIn = async (req, res, next) => {
     }
 
     const userDetails = await Jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { id: userDetails.id, email: userDetails.email };
-    // console.log(req.user);
+    req.user = {
+      id: userDetails.id,
+      email: userDetails.email,
+      role: userDetails.role,
+    };
     next();
   } catch (error) {
     return res.status(401).json({

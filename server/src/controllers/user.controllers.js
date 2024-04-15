@@ -116,4 +116,25 @@ const getProfile = async (req, res, next) => {
   }
 };
 
-export { register, login, logout, getProfile };
+const updateUser = async (req, res, next) => {
+  const userId = req.user.id;
+  const newFullname = req.body.newFullName;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return next(new AppError("User not found", 400));
+    }
+    user.fullName = newFullname;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "user detail updated Succesfully!!",
+      user,
+    });
+  } catch (error) {
+    return next(new AppError("failed to update user", 400));
+  }
+};
+
+export { register, login, logout, getProfile, updateUser };

@@ -3,6 +3,7 @@ import {
   login,
   logout,
   getProfile,
+  updateUser
 } from "../controllers/user.controllers.js";
 import isLoggedIn from "../middlewares/isLoggedIn.middleware.js";
 import upload from "../middlewares/multer.middleware.js";
@@ -18,5 +19,7 @@ userRoute.post("/login", login);
 userRoute.get("/logout", logout);
 //profile
 userRoute.get("/me", isLoggedIn, getProfile);
+//updateProfile
+userRoute.post("/update/:id",isLoggedIn, upload.single("avatar"),updateUser)
 
 export default userRoute;
