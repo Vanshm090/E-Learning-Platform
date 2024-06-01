@@ -9,8 +9,6 @@ const cookieOption = {
 
 const register = async (req, res, next) => {
   const { fullName, email, password } = req.body;
-  // console.log(req.body);//
-  // console.log(req.file);/
   if (!fullName || !email || !password) {
     return next(new AppError("All fields are required", 400));
   }
@@ -26,7 +24,6 @@ const register = async (req, res, next) => {
     return next(new AppError("Avatar Required!!", 400));
   }
   const avatar = await uploadOnCloudinary(avatarLocalPath);
-  // console.log(avatar);
   if (!avatar) {
     return next(new AppError("Avatar Required!!", 500));
   }
@@ -117,23 +114,29 @@ const getProfile = async (req, res, next) => {
 };
 
 const updateUser = async (req, res, next) => {
+  const { fullName } = req.body;
   const userId = req.user.id;
-  const newFullname = req.body.newFullName;
+  if (!userId) {
+    return next(new AppError("User does not exist", 400));
+  }
+  const avatarLocalPath = await req.file?.path;
+  console.log(avatarLocalPath);
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return next(new AppError("User not found", 400));
+      return next(new AppError("User not found", 404));
     }
-    user.fullName = newFullname;
+    user.fullName = fullName;
+
     await user.save();
 
     return res.status(200).json({
       success: true,
-      message: "user detail updated Succesfully!!",
+      message: "User updated succesfully",
       user,
     });
   } catch (error) {
-    return next(new AppError("failed to update user", 400));
+    return next(new AppError("User updation Failed" + error.message, 400));
   }
 };
 

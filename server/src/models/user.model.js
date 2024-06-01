@@ -53,7 +53,7 @@ userSchema.methods = {
         expiresIn: process.env.JWT_EXPIRY,
       }
     );
-  },
+  }, 
   comparePassword: async function (textpassword) {
     return await bcrypt.compare(textpassword, this.password);
   },

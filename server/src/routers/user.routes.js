@@ -20,6 +20,6 @@ userRoute.get("/logout", logout);
 //profile
 userRoute.get("/me", isLoggedIn, getProfile);
 //updateProfile
-userRoute.post("/update/:id",isLoggedIn, upload.single("avatar"),updateUser)
+userRoute.post("/update",isLoggedIn, upload.single("avatar"),updateUser)
 
 export default userRoute;

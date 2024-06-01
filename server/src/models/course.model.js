@@ -1,5 +1,54 @@
 import mongoose from "mongoose";
 
+// Define the schema for documents
+const documentSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Document title is required"],
+  },
+  description: {
+    type: String,
+    required: [true, "Document description is required"],
+  },
+  filePath: {
+    type: String,
+    required: [true, "Document file path is required"],
+  },
+});
+
+// Define the schema for lectures
+const lectureSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Lecture title is required"],
+  },
+  description: {
+    type: String,
+    required: [true, "Lecture description is required"],
+  },
+  avatar: {
+    type: String,
+    required: [true, "Lecture avatar is required"],
+  },
+});
+
+// Define the schema for test papers
+const testPaperSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Test paper title is required"],
+  },
+  description: {
+    type: String,
+    required: [true, "Test paper description is required"],
+  },
+  filePath: {
+    type: String,
+    required: [true, "Test paper file path is required"],
+  },
+});
+
+// Define the schema for courses
 const courseSchema = new mongoose.Schema(
   {
     title: {
@@ -9,7 +58,7 @@ const courseSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "Descriptipon is required"],
+      required: [true, "Description is required"],
     },
     thumbnail: {
       type: String,
@@ -27,6 +76,9 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    documents: [documentSchema],
+    lectures: [lectureSchema],
+    testPapers: [testPaperSchema],
   },
   {
     timestamps: true,
